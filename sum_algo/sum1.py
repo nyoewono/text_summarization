@@ -17,17 +17,16 @@ from nltk.stem.snowball import SnowballStemmer
 # import counter
 from collections import Counter
 
-class SumText:
+class SumTextOne:
     
     """
     The class was made to summarize any given text using extraction method.
     Algorithm inspired by: https://blog.floydhub.com/gentle-introduction-to-text-summarization-in-machine-learning/
     """
     
-    def __init__(self, text, type_text='normal'):
+    def __init__(self, text):
         
         self.text = text
-        self.type_text= type_text
     
     def _preprocessing(self):
         """Prepare the sentences for tf-idf and cosine similarity"""
