@@ -41,11 +41,17 @@ class Summarize:
         # stem each words
         self.clean_text = self._stem_words(self.clean_text)
     
+    def _get_num_sent(self):
+        return len(self.text)
+    
     def _print_sum_text(self, sent):
-       for each_sent in sent:
-           print_sent = re.sub(r'[[]\d+]', '', self.text[each_sent-1])
-           print(print_sent, end=' ')
-       print('\n')
+        res = ""
+        for each_sent in sent:
+            print_sent = re.sub(r'[[]\d+]', '', self.text[each_sent-1])
+            res += print_sent+' '
+            #print(print_sent, end=' ')
+        #print('\n')
+        return res
     
     def _stem_words(self, lst_sent):
         """Helper function to find the origin of each words"""
@@ -131,7 +137,7 @@ class SumTextOne(Summarize):
         self._count_freq(self.clean_text)
         self._apply_weight()
         sent = self._take_imp_sent(par_threshold)
-        Summarize._print_sum_text(self, sent)
+        return Summarize._print_sum_text(self, sent)
 
 class SumTextTwo(Summarize):
     
@@ -159,7 +165,8 @@ class SumTextTwo(Summarize):
         self._idf()
         self._cosine()
         self._agg_cosine(k)
-        Summarize._print_sum_text(self, self.res_sent)
+        return Summarize._print_sum_text(self, self.res_sent)
+        
         
     def _tf(self):
         
@@ -220,6 +227,6 @@ class SumTextTwo(Summarize):
     def summarize(self, k=5):
         Summarize._preprocessing(self)
         self._count_freq()
-        self._weight_sent(k)
+        return self._weight_sent(k)
     
     
